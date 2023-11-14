@@ -1,0 +1,65 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model JogadoresSerieA2022 {
+  id                              Int                              @id
+  first_name                      String
+  last_name                       String
+  age                             Int
+  nationality                     String
+  height                          Float
+  weight                          Float
+  id_time                         Int
+  time                            TimesSerieA2022                  @relation(fields: [id_time], references: [id_time])
+  EstatisticasJogadoresSerieA2022 EstatisticasJogadoresSerieA2022?
+}
+
+model EstatisticasJogadoresSerieA2022 {
+  id_jogador           Int                 @id
+  jogador              JogadoresSerieA2022 @relation(fields: [id_jogador], references: [id])
+  qtd_partidas_titular Int
+  gols                 Int
+  passes               Int
+  faltas               Int
+  penaltis_marcados    Int
+  penaltis_perdidos    Int
+  cartao_amarelo       Int
+  cartao_vermelho      Int
+}
+
+model PartidasSerieA2022 {
+  id_partida     Int    @id
+  arbitro        String
+  estadio        EstadiosBrasil @relation(fields: [estadio_id], references: [id_estadio])
+  estadio_id     Int
+  time_casa      Int
+  time_visitante Int
+  gols_casa      Int
+  gols_visitante Int
+  vencedor       Int
+  gols_total Int
+}
+
+model EstadiosBrasil {
+  id_estadio   Int    @id
+  nome_estadio String
+  cidade       String
+  estado       String
+  capacidade   Int
+  Partidas     PartidasSerieA2022[]
+}
+
+model TimesSerieA2022 {
+  id_time    Int                   @id
+  nome_time  String
+  id_estadio Int
+  fundacao   Int
+  estadio    String
+  Jogadores  JogadoresSerieA2022[]
+}

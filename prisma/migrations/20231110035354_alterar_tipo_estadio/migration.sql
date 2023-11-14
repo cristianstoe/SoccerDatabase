@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "TimesSerieA2022" ALTER COLUMN "estadio" SET DATA TYPE TEXT;

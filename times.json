@@ -1,0 +1,142 @@
+[
+  {
+    "id_time": 119,
+    "nome_time": "Internacional",
+    "id_estadio": 244,
+    "fundacao": 1909,
+    "estadio": 244
+  },
+  {
+    "id_time": 120,
+    "nome_time": "Botafogo",
+    "id_estadio": 218,
+    "fundacao": 1904,
+    "estadio": 218
+  },
+  {
+    "id_time": 121,
+    "nome_time": "Palmeiras",
+    "id_estadio": 258,
+    "fundacao": 1914,
+    "estadio": 258
+  },
+  {
+    "id_time": 124,
+    "nome_time": "Fluminense",
+    "id_estadio": 204,
+    "fundacao": 1902,
+    "estadio": 204
+  },
+  {
+    "id_time": 125,
+    "nome_time": "America Mineiro",
+    "id_estadio": 206,
+    "fundacao": 1912,
+    "estadio": 206
+  },
+  {
+    "id_time": 126,
+    "nome_time": "Sao Paulo",
+    "id_estadio": 269,
+    "fundacao": 1930,
+    "estadio": 269
+  },
+  {
+    "id_time": 127,
+    "nome_time": "Flamengo",
+    "id_estadio": 204,
+    "fundacao": 1895,
+    "estadio": 204
+  },
+  {
+    "id_time": 128,
+    "nome_time": "Santos",
+    "id_estadio": 10494,
+    "fundacao": 1912,
+    "estadio": 10494
+  },
+  {
+    "id_time": 129,
+    "nome_time": "Ceara",
+    "id_estadio": 225,
+    "fundacao": 1914,
+    "estadio": 225
+  },
+  {
+    "id_time": 131,
+    "nome_time": "Corinthians",
+    "id_estadio": 11531,
+    "fundacao": 1910,
+    "estadio": 11531
+  },
+  {
+    "id_time": 134,
+    "nome_time": "Atletico Paranaense",
+    "id_estadio": 10493,
+    "fundacao": 1924,
+    "estadio": 10493
+  },
+  {
+    "id_time": 144,
+    "nome_time": "Atletico Goianiense",
+    "id_estadio": 211,
+    "fundacao": 1937,
+    "estadio": 211
+  },
+  {
+    "id_time": 145,
+    "nome_time": "Avai",
+    "id_estadio": 214,
+    "fundacao": 1923,
+    "estadio": 214
+  },
+  {
+    "id_time": 147,
+    "nome_time": "Coritiba",
+    "id_estadio": 230,
+    "fundacao": 1909,
+    "estadio": 230
+  },
+  {
+    "id_time": 151,
+    "nome_time": "Goias",
+    "id_estadio": 240,
+    "fundacao": 1943,
+    "estadio": 240
+  },
+  {
+    "id_time": 152,
+    "nome_time": "Juventude",
+    "id_estadio": 248,
+    "fundacao": 1913,
+    "estadio": 248
+  },
+  {
+    "id_time": 154,
+    "nome_time": "Fortaleza EC",
+    "id_estadio": 225,
+    "fundacao": 1918,
+    "estadio": 225
+  },
+  {
+    "id_time": 794,
+    "nome_time": "RB Bragantino",
+    "id_estadio": 220,
+    "fundacao": 1928,
+    "estadio": 220
+  },
+  {
+    "id_time": 1062,
+    "nome_time": "Atletico-MG",
+    "id_estadio": 206,
+    "fundacao": 1908,
+    "estadio": 206
+  },
+  {
+    "id_time": 1193,
+    "nome_time": "Cuiaba",
+    "id_estadio": 235,
+    "fundacao": 2001,
+    "estadio": 235
+  }
+]

@@ -7,59 +7,210 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model JogadoresSerieA2022 {
-  id                              Int                              @id
-  first_name                      String
-  last_name                       String
-  age                             Int
-  nationality                     String
-  height                          Float
-  weight                          Float
-  id_time                         Int
-  time                            TimesSerieA2022                  @relation(fields: [id_time], references: [id_time])
-  EstatisticasJogadoresSerieA2022 EstatisticasJogadoresSerieA2022?
+model treinador_nomes {
+  treinador_nome_id Int    @id @default(autoincrement())
+  treinador_nome    String
+
+  treinadores treinadores[]
 }
 
-model EstatisticasJogadoresSerieA2022 {
-  id_jogador           Int                 @id
-  jogador              JogadoresSerieA2022 @relation(fields: [id_jogador], references: [id])
-  qtd_partidas_titular Int
-  gols                 Int
-  passes               Int
-  faltas               Int
-  penaltis_marcados    Int
-  penaltis_perdidos    Int
-  cartao_amarelo       Int
-  cartao_vermelho      Int
+model estatistica_jogadores {
+  estatistica_jogador_id           Int      @id @default(autoincrement())
+  estatistica_jogador_data         DateTime
+  estatistica_jogador_numero_jogos Int
+  estatistica_jogador_chutes       Int
+  estatistica_jogador_gols         Int
+  estatistica_jogador_passes       Int
+  estatistica_jogador_faltas       Int
+  estatistica_jogador_dribles      Int
+  estatistica_jogador_cartoes      Int
+
+  estatisticas estatisticas[]
+
+  @@unique([estatistica_jogador_id, estatistica_jogador_data])
 }
 
-model PartidasSerieA2022 {
-  id_partida     Int    @id
-  arbitro        String
-  estadio        EstadiosBrasil @relation(fields: [estadio_id], references: [id_estadio])
-  estadio_id     Int
-  time_casa      Int
-  time_visitante Int
-  gols_casa      Int
-  gols_visitante Int
-  vencedor       Int
-  gols_total Int
+model cidades {
+  cidade_id   Int    @id @default(autoincrement())
+  cidade_nome String
+
+  paises_x_cidades      paises_x_cidades[]
+  enderecos             enderecos[]
+  jogadores_nascimentos jogadores_nascimentos[]
 }
 
-model EstadiosBrasil {
-  id_estadio   Int    @id
-  nome_estadio String
-  cidade       String
-  estado       String
-  capacidade   Int
-  Partidas     PartidasSerieA2022[]
+model temporadas {
+  temporada_id  Int @id @default(autoincrement())
+  temporada_ano Int
+
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores[]
 }
 
-model TimesSerieA2022 {
-  id_time    Int                   @id
-  nome_time  String
-  id_estadio Int
-  fundacao   Int
-  estadio    String
-  Jogadores  JogadoresSerieA2022[]
+// model liga_tipo {
+//   liga_tipo_id   Int    @id @default(autoincrement())
+//   liga_tipo_nome String
+
+//   ligas ligas[]
+// }
+
+model paises {
+  pais_id    Int    @id @default(autoincrement())
+  pais_nome  String
+  pais_sigla String @db.Char(2)
+
+  paises_x_cidades      paises_x_cidades[]
+  jogadores_nascimentos jogadores_nascimentos[]
+  enderecos             enderecos[]
+  times                 times[]
+  ligas                 ligas[]
+}
+
+model paises_x_cidades {
+  pais_id   Int
+  cidade_id Int
+
+  paises    paises      @relation(fields: [pais_id], references: [pais_id])
+  cidades   cidades     @relation(fields: [cidade_id], references: [cidade_id])
+  enderecos enderecos[]
+
+  @@id([pais_id, cidade_id])
+}
+
+model jogadores_nascimentos {
+  jogador_nascimento_id   Int      @id @default(autoincrement())
+  jogador_nascimento_data DateTime
+  pais_id                 Int
+  cidade_id               Int
+
+  paises  paises  @relation(fields: [pais_id], references: [pais_id])
+  cidades cidades @relation(fields: [cidade_id], references: [cidade_id])
+
+  jogadores jogadores[]
+}
+
+model jogadores {
+  jogador_nome_id       Int    @id @default(autoincrement())
+  jogador_primeiro_nome String
+  jogador_segundo_nome  String
+  jogador_idade         String
+  jogador_nascimento_id Int
+
+  jogadores_nascimentos jogadores_nascimentos @relation(fields: [jogador_nascimento_id], references: [jogador_nascimento_id])
+
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores[]
+}
+
+model enderecos {
+  endereco_id Int    @id @default(autoincrement())
+  endereco    String
+  pais_id     Int
+  cidade_id   Int
+
+  paises_x_cidades paises_x_cidades @relation(fields: [pais_id, cidade_id], references: [pais_id, cidade_id])
+
+  estadios         estadios[]
+  cidades          cidades?   @relation(fields: [cidadesCidade_id], references: [cidade_id])
+  cidadesCidade_id Int?
+  paises           paises?    @relation(fields: [paisesPais_id], references: [pais_id])
+  paisesPais_id    Int?
+}
+
+model estadios {
+  estadio_id         Int    @id @default(autoincrement())
+  estadio_nome       String
+  estadio_capacidade Int
+  endereco_id        Int
+
+  enderecos enderecos @relation(fields: [endereco_id], references: [endereco_id])
+}
+
+model times {
+  time_id   Int    @id @default(autoincrement())
+  code     String
+  time_nome String
+  pais_id   Int
+
+  paises paises @relation(fields: [pais_id], references: [pais_id])
+
+  treinadores                            treinadores[]
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores[]
+}
+
+model treinadores {
+  treinador_id      Int @id @default(autoincrement())
+  treinador_nome_id Int
+  time_id           Int
+
+  treinador_nomes treinador_nomes @relation(fields: [treinador_nome_id], references: [treinador_nome_id])
+  times           times           @relation(fields: [time_id], references: [time_id])
+}
+
+model ligas {
+  liga_id      Int    @id @default(autoincrement())
+  liga_nome    String
+  liga_tipo    String
+  pais_id      Int
+
+  // liga_tipo liga_tipo @relation(fields: [liga_tipo_id], references: [liga_tipo_id])
+  paises    paises    @relation(fields: [pais_id], references: [pais_id])
+
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores[]
+}
+
+model ligas_x_times_x_temporadas_x_jogadores {
+  liga_id      Int
+  time_id      Int
+  temporada_id Int
+  jogador_id   Int
+
+  ligas          ligas            @relation(fields: [liga_id], references: [liga_id])
+  times          times            @relation(fields: [time_id], references: [time_id])
+  temporadas     temporadas       @relation(fields: [temporada_id], references: [temporada_id])
+  jogadores      jogadores        @relation(fields: [jogador_id], references: [jogador_nome_id])
+  jogos          jogos[]
+  estatisticas   estatisticas[]
+  classificacoes classificacoes[]
+
+  @@id([liga_id, time_id, temporada_id, jogador_id])
+}
+
+model jogos {
+  jogo_id           Int      @id @default(autoincrement())
+  jogo_data         DateTime
+  jogo_fuso_horario DateTime
+  liga_id           Int
+  time_id           Int
+  temporada_id      Int
+  jogador_id        Int
+
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores @relation(fields: [liga_id, time_id, temporada_id, jogador_id], references: [liga_id, time_id, temporada_id, jogador_id])
+  estatisticas                           estatisticas[]
+}
+
+model estatisticas {
+  estatistica_jogador_id   Int
+  estatistica_jogador_data DateTime
+  liga_id                  Int
+  time_id                  Int
+  temporada_id             Int
+  jogo_id                  Int
+  jogador_id               Int
+
+  estatistica_jogadores                  estatistica_jogadores                  @relation(fields: [estatistica_jogador_id, estatistica_jogador_data], references: [estatistica_jogador_id, estatistica_jogador_data])
+  jogos                                  jogos                                  @relation(fields: [jogo_id], references: [jogo_id])
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores @relation(fields: [liga_id, time_id, temporada_id, jogador_id], references: [liga_id, time_id, temporada_id, jogador_id])
+
+  @@id([estatistica_jogador_id, estatistica_jogador_data])
+}
+
+model classificacoes {
+  liga_id             Int
+  time_id             Int
+  temporada_id        Int
+  jogador_id          Int
+  classificacao_valor Int
+
+  ligas_x_times_x_temporadas_x_jogadores ligas_x_times_x_temporadas_x_jogadores @relation(fields: [liga_id, time_id, temporada_id, jogador_id], references: [liga_id, time_id, temporada_id, jogador_id])
+
+  @@id([liga_id, time_id, temporada_id, jogador_id])
 }

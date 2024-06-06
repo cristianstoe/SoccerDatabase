@@ -2,7 +2,7 @@ const axios = require('axios');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const API_KEY = '4213bcc936eacead7ab736b4799218d0'; // Substitua com sua chave de API
+const API_KEY = '4213bcc936eacead7ab736b4799218d0'; 
 const API_URL = 'https://v3.football.api-sports.io/fixtures?season=2022&league=71';
 
 const obterEstadioPorId = async (estadioId) => {
@@ -41,12 +41,10 @@ const mapearPartidasParaModelo = async (partidasDaAPI) => {
   
     const estadio_id = partida.fixture.venue.id;
   
-    // Check if estadio_id is not null or undefined
     let estadio = null;
     if (estadio_id !== null && estadio_id !== undefined) {
       estadio = await obterEstadioPorId(estadio_id);
   
-      // Check if estadio is not null before accessing its properties
       if (estadio !== null) {
         partidasFormatadas.push({
           id_partida: partida.fixture.id,

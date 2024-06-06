@@ -12,3 +12,8 @@ prisma migrate dev --name init
 ```
 node ***.js
 ```
+
+abrir visualizacao DB
+```
+npx prisma studio
+```
